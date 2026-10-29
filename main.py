@@ -1,3 +1,4 @@
+import os
 import math
 import statistics
 from datetime import datetime, timezone
@@ -157,6 +158,10 @@ def explain_code(code: str, language: str = "Python") -> str:
     """Prompt template that asks for a clear explanation of a code snippet"""
     return f"Explain the following {language} code step by step:\n\n{code}"
 
-
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "10000")),
+        stateless_http=True,
+    )
